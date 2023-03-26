@@ -1,0 +1,58 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: showcase 
+  name:
+    showcase
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: showcase
+  template:
+    metadata:
+      labels:
+        app: nsshowcase
+    spec:
+      containers:
+        - name: showcase
+          image: azegistry.azurecr.io/showcase:VERSION-SHA
+          env:
+          - name: BUILD
+            value: "VERSION"         
+          ports:
+          - containerPort: 80
+            name: showcase          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: nsshowcase
+  name: showcase
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: showcase
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: nsshowcase
+  name: showcase-ingress-static
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: showcase
+            port: 
+              number: 80
