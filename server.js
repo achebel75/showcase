@@ -32,7 +32,7 @@ const server = http.createServer(async (request, response) => {
       </head>
       <body>
         <h1>Hello World !</h1>
-        <p># number/total of the deployment for the day (docker build+tag+push and deploy to kubernetes) : ${process.env.BUILD} </p>
+        <p># Number of the deployment for the day in fast mode : ${process.env.BUILD} </p>
 		<h2><b>
         <p id="countdown"></p></b></h2>
         <script>
