@@ -12,7 +12,7 @@ const server = http.createServer((request, response) => {
       </head>
       <body>
         <h1>Hello World !</h1>
-        <p># number/total of the deployment for the day : ${process.env.BUILD} </p>
+        <p> Number of the deployment for the day : ${process.env.BUILD} </p>
 		<h2><b>
         <p id="countdown"></p></b></h2>
         <script>
