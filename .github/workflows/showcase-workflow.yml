@@ -47,10 +47,20 @@ jobs:
           ACR_NAME: ${{ secrets.ACR_NAME }}
         run: make deploy 
       - name: Create new file and upload it to blob container
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
         run: |
+          az login \
+          --service-principal \
+          --username $(SERVICE_PRINCIPAL_APP_ID) \
+          --password $(SERVICE_PRINCIPAL_SECRET) \
+          --tenant $(SERVICE_PRINCIPAL_TENANT)
+          echo "end az login"
           export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
           export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
-          env
+          
           mkdir -p /tmp/showcase
           touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
 
