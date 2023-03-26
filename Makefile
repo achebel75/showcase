@@ -19,3 +19,7 @@ registry-login:
 push:
 	docker push $(IMAGE_REPO):$(VERSION)-$(SHA)
 
+.PHONY: deploy
+deploy:
+	sed 's/SHA/$(SHA)/g; s/VERSION/$(VERSION)/g' ./deployment.yaml | \
+		kubectl apply -f -
