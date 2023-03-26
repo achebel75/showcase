@@ -1,7 +1,11 @@
 name: showcase
 
-on: [push,workflow_dispatch]
-
+on: 
+  push:
+    branches: 
+      - main
+  workflow_dispatch:
+    
 env:
   MYPAT: ${{ secrets.MYPAT }}
   SHA: ${{ github.sha }}
@@ -29,7 +33,7 @@ jobs:
           SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
           SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
           SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
-        run: make registry-login
+        run: make az-login
       - name: Get AKS credentials
         env:
           CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
@@ -53,9 +57,3 @@ jobs:
           git config user.name "Ali Chebel"
           git add .
           git commit -m "showcase #$version)" && git push https://$MYPAT@github.com/achebel75/showcase.git HEAD:main        
-
-
-
-
-
-
