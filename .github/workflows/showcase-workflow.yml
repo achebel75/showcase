@@ -48,8 +48,6 @@ jobs:
         run: make deploy 
       - name: Create new file and upload it to blob container
         run: |
-          az login --service-principal --username ${{ secrets.SERVICE_PRINCIPAL_APP_ID }} --password ${{ secrets.SERVICE_PRINCIPAL_SECRET }} --tenant ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
-          echo "end az login"
           export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
           export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
           
@@ -58,7 +56,7 @@ jobs:
 
           cd /tmp/showcase/
           # Upload sample files to container
-          az storage blob upload-batch --connection-string "DefaultEndpointsProtocol=https;AccountName=sashowcase;AccountKey=R8Z+fyCynm9EOCG8mqltoOO+kv9dghV6l9NA0ynKUOD8kJXjLNFvf5YAS68qAhYToJq4cXL8JUHD+AStyqTiTg==;EndpointSuffix=core.windows.net" -d showcase -s . --overwrite
+          az storage blob upload-batch --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} -d showcase -s . --overwrite
 
    Commit-Next-Loop-Parallel-Jobs:
     timeout-minutes: 10
