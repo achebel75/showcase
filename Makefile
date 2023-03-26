@@ -1,6 +1,6 @@
 VERSION_FILE := version
 VERSION := $(shell cat ${VERSION_FILE})
-IMAGE_REPO := $(ACR_NAME).azurecr.io/showcase
+IMAGE_REPO := achebel/showcase
 
 .PHONY: build
 build:
