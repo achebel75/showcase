@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: showcase
-          image: azegistry.azurecr.io/showcase:VERSION-SHA
+          image: acrshowcase.azurecr.io/showcase:VERSION-SHA
           env:
           - name: BUILD
             value: "VERSION"         
