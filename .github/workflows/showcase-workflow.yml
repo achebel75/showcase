@@ -58,7 +58,7 @@ jobs:
 
           cd /tmp/showcase/
           # Upload sample files to container
-          az storage blob upload-batch -d showcase -s . --overwrite
+          az storage blob upload-batch --connection-string "DefaultEndpointsProtocol=https;AccountName=sashowcase;AccountKey=R8Z+fyCynm9EOCG8mqltoOO+kv9dghV6l9NA0ynKUOD8kJXjLNFvf5YAS68qAhYToJq4cXL8JUHD+AStyqTiTg==;EndpointSuffix=core.windows.net" -d showcase -s . --overwrite
 
    Commit-Next-Loop-Parallel-Jobs:
     timeout-minutes: 10
