@@ -1,13 +1,15 @@
-name: showcase
+name: Showcase Paralell Jobs
 
 on: [push,workflow_dispatch]
 
 env:
   MYPAT: ${{ secrets.MYPAT }}
   SHA: ${{ github.sha }}
+  AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+  AZURE_STORAGE_ACCESS_KEY: ${{ secrets.AZURE_STORAGE_ACCESS_KEY }}
 
 jobs:
-   build-push-deploy:
+   Job01:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -15,6 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.MYPAT }}
+          ref: fast
       - name: Build image
         env:
           ACR_NAME: ${{ secrets.ACR_NAME }}
@@ -43,19 +46,36 @@ jobs:
         env:
           ACR_NAME: ${{ secrets.ACR_NAME }}
         run: make deploy 
-      - name: Increment version and commit tag for the next loop
+      - name: Create new file and upload it to blob container
         run: |
-          env
+          export AZURE_STORAGE_ACCOUNT=${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          export AZURE_STORAGE_ACCESS_KEY=${{ secrets.AZURE_STORAGE_ACCESS_KEY }}
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch -d showcase -s . --overwrite
+
+   Commit-Next-Loop-Parallel-Jobs:
+    timeout-minutes: 10
+    needs: [Job01]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+      - name: Commit for triggering next parallel jobs
+        run: |
           cd $GITHUB_WORKSPACE 
           version=$(cat ./version) 
-          echo "$(($version +1))" > ./version 
+          echo "$(($version+1))" > ./version 
           git config user.email "achebel75@gmail.com" 
           git config user.name "Ali Chebel"
-          git add .
-          git commit -m "update version file" && git push https://$MYPAT@github.com/achebel75/showcase.git HEAD:main        
-
-
-
-
-
-
+          git pull 
+          git add . 
+          git commit -m "Launch parallel build-push-deploy jobs" && git push https://$MYPAT@github.com/achebel75/showcase.git HEAD:fast 
+          rm -rf /tmp/showcase
+    
