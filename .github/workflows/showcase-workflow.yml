@@ -63,9 +63,451 @@ jobs:
           # Upload sample files to container
           az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
 
+   Job02:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job03:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job04:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job05:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job06:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job07:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job08:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+   Job09:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
+
+   Job10:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MYPAT }}
+          ref: fast
+      - name: Build image
+        run: make build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
+        env:
+          SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
+          SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+        run: make az-login
+      - name: Get AKS credentials
+        env:
+          CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          az aks get-credentials \
+            --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+            --name $CLUSTER_NAME \
+            --overwrite-existing
+      - name: Deploy application
+        env:
+          ACR_NAME: ${{ secrets.ACR_NAME }}
+        run: make deploy 
+      - name: Create new file and upload it to blob container
+        run: |
+          export AZURE_STORAGE_ACCOUNT=$AZURE_STORAGE_ACCOUNT
+          export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
+          
+          mkdir -p /tmp/showcase
+          touch /tmp/showcase/build_number_$(date '+%Y%m%d%H%M%S').txt 
+
+          cd /tmp/showcase/
+          # Upload sample files to container
+          az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d showcase -s . --overwrite
+
    Commit-Next-Loop-Parallel-Jobs:
     timeout-minutes: 10
-    needs: [Job01]
+    needs: [Job01, Job02,Job03,Job04,Job05,Job06,Job07,Job08,Job09,Job10]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
