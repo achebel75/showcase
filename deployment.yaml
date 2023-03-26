@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: showcase
-          image: acrshowcase.azurecr.io/showcase:VERSION-SHA
+          image: achebel/showcasefast:VERSION-SHA
           env:   
           - name: AZURE_STORAGE_CONTAINER_NAME
             value: "builds"  

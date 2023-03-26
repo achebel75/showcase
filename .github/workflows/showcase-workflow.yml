@@ -1,6 +1,11 @@
 name: Showcase Paralell Jobs
 
-on: [push,workflow_dispatch]
+on: 
+  push:
+    branches: 
+      - fast
+  workflow_dispatch:
+    
 
 env:
   MYPAT: ${{ secrets.MYPAT }}
@@ -19,20 +24,20 @@ jobs:
           token: ${{ secrets.MYPAT }}
           ref: fast
       - name: Build image
-        env:
-          ACR_NAME: ${{ secrets.ACR_NAME }}
         run: make build
-      - name: Login to container registry
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push image
+        run: make push
+      - name: AZ login
         env:
           SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
           SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
           SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
-          ACR_NAME: ${{ secrets.ACR_NAME }}
-        run: make registry-login
-      - name: Push image
-        env:
-          ACR_NAME: ${{ secrets.ACR_NAME }}
-        run: make push
+        run: make az-login
       - name: Get AKS credentials
         env:
           CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
