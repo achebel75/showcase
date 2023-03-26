@@ -24,6 +24,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Push Docker image
         run: make push
+      - name: AZ login
+        run: make registry-login
       - name: Get AKS credentials
         env:
           CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
