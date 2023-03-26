@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  namespace: nsshowcase 
+  namespace: nsshowcase
   name:
     showcase
 spec:
@@ -17,12 +17,17 @@ spec:
       containers:
         - name: showcase
           image: acrshowcase.azurecr.io/showcase:VERSION-SHA
-          env:
-          - name: BUILD
-            value: "VERSION"         
+          env:   
+          - name: AZURE_STORAGE_CONTAINER_NAME
+            value: "builds"  
+          - name: AZURE_STORAGE_CONNECTION_STRING 
+            valueFrom: 
+              secretKeyRef: 
+                name: storageaccount
+                key:  connectionstring
           ports:
           - containerPort: 80
-            name: showcase          
+            name: poc-helloworld          
 ---
 apiVersion: v1
 kind: Service
