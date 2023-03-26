@@ -49,7 +49,6 @@ jobs:
         run: make deploy 
       - name: Increment version and commit tag for the next loop
         run: |
-          env
           cd $GITHUB_WORKSPACE 
           version=$(cat ./version) 
           echo "$(($version +1))" > ./version 
