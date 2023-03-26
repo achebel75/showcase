@@ -1,6 +1,6 @@
 name: showcase
 
-on: [workflow_dispatch]
+on: [push,workflow_dispatch]
 
 env:
   MYPAT: ${{ secrets.MYPAT }}
