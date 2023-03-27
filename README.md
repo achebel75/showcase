@@ -1,15 +1,15 @@
 # Showcase
 
-## What is the goal?
+## What is the aim?
 
-The purpose is to provide a `pipeline that enables the fastest possible` a hello world app deployment : 
+The purpose is to provide a `CI/CD pipeline that enables the fastest possible` a hello world app deployment : 
   - [x] each deployment will trigger the next one, and this for `15 minutes without disturbing the user experience`. 
   - [x] the web user should not get any errors during the deployments.
 
 
 ## Hello World application?
 
-This Hello World application is composed of a single HTML page including javascript code with the following requirements : 
+This Hello World application is a single HTML/javascript page with below features : 
   - [x]  to refresh every 5 seconds 
   - [x]  to show the # of the deployment for the day
   - [x]  to show the seconds counting on the page
@@ -32,9 +32,9 @@ This Hello World application is composed of a single HTML page including javascr
 
 ## Project Details
 
-In this repository, you will find 2 branches : 
-  - [x] _main_ branch contains a pipeline that run one job for building the app image, pushing it to Docker Hub, deploying the web application to AKS 
-  - [x] _fast_ branch contains a pipeline that run several jobs in parrallel for doing the same
+Within the repository, you will find 2 branches : 
+  - [x] _main_ branch contains a pipeline that runs a single job to build the application image, push it to Docker Hub, deploy the web application to AKS 
+  - [x] _fast_ branch contains a pipeline that runs several instance of the same single job  in parrallel mode.
 
 <img width="672" alt="image" src="https://user-images.githubusercontent.com/41162971/227932789-7f2b6563-cbfa-4ea2-b17d-5f5f87798bdb.png">
 
@@ -63,5 +63,6 @@ A GitHub runner is a build agent that can be GitHub hosted or self-hosted. A run
 
 
 ## Remarks
+
 
 
