@@ -1,4 +1,4 @@
-# showcase
+# Showcase
 
 ## What is the goal?
 
@@ -24,19 +24,36 @@ This Hello World application is composed of a single HTML page including javascr
 | Git Repository Service | GitHub                                                                    | The most popular web-based version control and collaboration platform for software developers| 
 | CI Service             | GitHub Actions                                                            | CI Service that offer a plenty of actions with hosted runners                             | 
 | CD Service             | Github Actions                                                            | CD Service that offer a plenty of actions with hosted runners                                             |
-| Cloud Prodvider        | Azure                                                                     |                                                                                              |
-| Container Orchestrator | AKS                                                                       |                                                                                              |
-| Container Registry     | Docker Hub                                                                       |                                                                                              |
-| Secret Management      | GitHub Actions Secrets                                                    |                                                                                              |
+| Cloud Provider         | Azure                                                                     | Microsoft's public cloud platform (IaaS, PaaS, FaaS..)                                                                                            |
+| Container Orchestrator | AKS                                                                       |    Service managed                                                                                          |
+| Container Registry     | Docker Hub                                                                       |  Hosted repository service for container images                                                                                              |
+| Secret Management      | GitHub Actions Secrets                                                    |   Integrated with GitHub Actions                                                                                           |
+| Javascript runtime environment      | Node.js                                                   |                                                                                              |
 
 ## How the application is deployed in non disruptive maner?
 
-The application is deployed on AKS (Azure Kubernetes Service) using the rolling update strategy offer by K8S. 
+The application is deployed on AKS (Azure Kubernetes Service) using the `rolling update strategy` offer by K8S. 
 It will replaces pods running the old version of the application with the new version, one by one, without downtime to the cluster.
 
+## How the application is deployed in non disruptive maner?
 
-## Resources
+
+## What you should know about GitHub Actions
+
+GitHub Actions is CI/CD platform that allows you to automate your build, test, and deployment pipeline.
+
+A GitHub Action workflow is pipeline equivalent of a jenkins pipeline described in Jenkinsfile : 
+  - It is split in jobs. 
+  - A job is running on a GitHUb runner
+  - You can run multiple jobs in parallel
+  - a workflow can be triggered in multiple ways : git push, pull request change...
+  
+An Action is a custom application that performs a complex and repeated task. It is equivalent of Jenkins plugins.
+
+A GitHub runner is a build agent that can be GitHub hosted or self-hosted. A runner can only process one job at a time.
 
 
-## Useful Documentation
+
+
+## Remarks
 
