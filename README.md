@@ -39,7 +39,7 @@ Within the repository, you will find 2 branches :
 <img width="672" alt="image" src="https://user-images.githubusercontent.com/41162971/227932789-7f2b6563-cbfa-4ea2-b17d-5f5f87798bdb.png">
 
 
-## How the application is deployed in non disruptive maner?
+## How the application is deployed in non disruptive manner?
 
 The application is deployed on AKS (Azure Kubernetes Service) using the `rolling update strategy` offer by K8S. 
 It will replaces pods running the old version of the application with the new version, one by one, `without downtime to the cluster`.
