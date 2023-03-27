@@ -22,8 +22,7 @@ This Hello World application is composed of a single HTML page including javascr
 |------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | Developer IDE          | VScode                                                                    | Open source IDE with a plenty of plugins                                                     |
 | Git Repository Service | GitHub                                                                    | The most popular web-based version control and collaboration platform for software developers| 
-| CI Service             | GitHub Actions                                                            | CI Service that offer a plenty of actions with hosted runners                             | 
-| CD Service             | Github Actions                                                            | CD Service that offer a plenty of actions with hosted runners                                             |
+| CI/CD Service             | GitHub Actions                                                            | GitHub Actions give the flexibility to build an automated software development lifecycle workflow with hosted runners                             |                     |
 | Cloud Provider         | Azure                                                                     | Microsoft's public cloud platform (IaaS, PaaS, FaaS..)                                                                                            |
 | Container Orchestrator | AKS                                                                       |    Azure Service managed                                                                                          |
 | Container Registry     | Docker Hub                                                                       |  Hosted repository service for container images                                                                                              |
@@ -43,7 +42,7 @@ In this repository, you will find 2 branches :
 ## How the application is deployed in non disruptive maner?
 
 The application is deployed on AKS (Azure Kubernetes Service) using the `rolling update strategy` offer by K8S. 
-It will replaces pods running the old version of the application with the new version, one by one, without downtime to the cluster.
+It will replaces pods running the old version of the application with the new version, one by one, `without downtime to the cluster`.
 
 
 
@@ -63,6 +62,6 @@ A GitHub runner is a build agent that can be GitHub hosted or self-hosted. A run
 
 
 
-
 ## Remarks
+
 
