@@ -25,17 +25,26 @@ This Hello World application is composed of a single HTML page including javascr
 | CI Service             | GitHub Actions                                                            | CI Service that offer a plenty of actions with hosted runners                             | 
 | CD Service             | Github Actions                                                            | CD Service that offer a plenty of actions with hosted runners                                             |
 | Cloud Provider         | Azure                                                                     | Microsoft's public cloud platform (IaaS, PaaS, FaaS..)                                                                                            |
-| Container Orchestrator | AKS                                                                       |    Service managed                                                                                          |
+| Container Orchestrator | AKS                                                                       |    Azure Service managed                                                                                          |
 | Container Registry     | Docker Hub                                                                       |  Hosted repository service for container images                                                                                              |
 | Secret Management      | GitHub Actions Secrets                                                    |   Integrated with GitHub Actions                                                                                           |
-| Javascript runtime environment      | Node.js                                                   |                                                                                              |
+| Javascript runtime environment      | Node.js                                                   |    Easy to get started with development                                                                                          |
+
+
+## Project Details
+
+In this repository, you will find 2 branches : 
+  - [x] _main_ branch contains a pipeline that run one job for building the app image, pushing it to Docker Hub, deploying the web application to AKS 
+  - [x] _fast_ branch contains a pipeline that run several jobs in parrallel for doing the same
+
+<img width="672" alt="image" src="https://user-images.githubusercontent.com/41162971/227932789-7f2b6563-cbfa-4ea2-b17d-5f5f87798bdb.png">
+
 
 ## How the application is deployed in non disruptive maner?
 
 The application is deployed on AKS (Azure Kubernetes Service) using the `rolling update strategy` offer by K8S. 
 It will replaces pods running the old version of the application with the new version, one by one, without downtime to the cluster.
 
-## How the application is deployed in non disruptive maner?
 
 
 ## What you should know about GitHub Actions
